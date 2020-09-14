@@ -6,25 +6,17 @@ const Event = require("../models/Event");
 const Group = require("../models/Group");
 
 router.get("/groups", (req, res, next) => {
-  res.render("groups/groupsView");
-});
-
-router.get("/groups", (req, res, next) => {
   Group.find().then((groupsFromDB) => {
-    console.log(groupsFromDB);
-    res.render("/groups/groupsView", { groupsList: groupsFromDB });
+    console.log("hello:", groupsFromDB);
+    res.render("groups/groupsView", { groupsList: groupsFromDB });
   });
 });
-
-// router.get("/groups/add", (req, res) => {
-//   res.render("groups/add");
-// });
 
 router.get("/groups/add", (req, res, next) => {
   console.log("happiness");
   User.find()
     .then((usersFromDB) => {
-      console.log("This is an :", usersFromDB);
+      // console.log("This is an :", usersFromDB);
       res.render("groups/add", { users: usersFromDB });
     })
     .catch((error) => {
@@ -34,10 +26,12 @@ router.get("/groups/add", (req, res, next) => {
 
 router.get("/groups/:groupId", (req, res, next) => {
   const id = req.params.groupId;
-  Group.findById(id).then((groupFromDB) => {
-    console.log(groupFromDB);
-    res.render("groupDetails", { group: groupFromDB });
-  });
+  Group.findById(id)
+    .populate("user")
+    .then((groupFromDB) => {
+      console.log(groupFromDB);
+      res.render("groups/groupDetails", { group: groupFromDB });
+    });
 });
 
 router.post("/groups", (req, res) => {

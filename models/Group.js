@@ -14,7 +14,7 @@ const groupSchema = new Schema({
     ref: "Event",
   },
   date: {
-    type: Number,
+    type: Date,
     // required: true,
   },
 });
