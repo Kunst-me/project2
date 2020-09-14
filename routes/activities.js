@@ -9,16 +9,42 @@ router.get("/groups", (req, res, next) => {
   res.render("groups/groupsView");
 });
 
-router.get("/groups/add", (req, res) => {
-  res.render("groups/add");
+router.get("/groups", (req, res, next) => {
+  Group.find().then((groupsFromDB) => {
+    console.log(groupsFromDB);
+    res.render("/groups/groupsView", { groupsList: groupsFromDB });
+  });
+});
+
+// router.get("/groups/add", (req, res) => {
+//   res.render("groups/add");
+// });
+
+router.get("/groups/add", (req, res, next) => {
+  console.log("happiness");
+  User.find()
+    .then((usersFromDB) => {
+      console.log("This is an :", usersFromDB);
+      res.render("groups/add", { users: usersFromDB });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.get("/groups/:groupId", (req, res, next) => {
+  const id = req.params.groupId;
+  Group.findById(id).then((groupFromDB) => {
+    console.log(groupFromDB);
+    res.render("groupDetails", { group: groupFromDB });
+  });
 });
 
 router.post("/groups", (req, res) => {
-  const { name, user, event, date } = req.body;
+  const { name, user, date } = req.body;
   Group.create({
     name,
     user,
-    event,
     date,
   })
     .then((group) => {
@@ -26,7 +52,7 @@ router.post("/groups", (req, res) => {
       res.render("groups/groupsView");
     })
     .catch((err) => {
-      console.log("There was an error: ", error);
+      console.log("There was an error: ", err);
     });
 });
 
