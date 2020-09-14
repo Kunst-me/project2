@@ -9,12 +9,8 @@ router.get("/groups", (req, res, next) => {
   res.render("groups/groupsView");
 });
 
-router.get("/groups/:groupId", (req, res, next) => {
-  const id = req.params.groupId;
-  Group.findById(id).then((groupFromDB) => {
-    console.log(groupFromDB);
-    res.render("groups/groupDetails", { group: groupFromDB });
-  });
+router.get("/groups/add", (req, res) => {
+  res.render("groups/add");
 });
 
 router.post("/groups", (req, res) => {
@@ -27,9 +23,10 @@ router.post("/groups", (req, res) => {
   })
     .then((group) => {
       console.log(`New group was created: ${group}`);
+      res.render("groups/groupsView");
     })
     .catch((err) => {
-      console.log(error);
+      console.log("There was an error: ", error);
     });
 });
 
