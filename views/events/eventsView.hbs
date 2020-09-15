@@ -1,4 +1,5 @@
 <h1>These are the available events</h1>
+<<<<<<< HEAD
 
         <form action="/groups/{{groupId}}" method="POST">
 
@@ -16,5 +17,11 @@
 
         </form>
 
+=======
+{{#each eventsList}}
+<a href="/events/{{_id}}">{{ name }}</a>
+
+{{/each}}
+>>>>>>> eb0c25fb11ebbfb3df78ebbf4f6c0839bfc451df
 
 <a href="/events/add">New event</a>
