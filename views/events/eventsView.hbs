@@ -1,7 +1,12 @@
 <h1>These are the available events</h1>
-{{#each eventsList}}
-<a href="/events/{{_id}}">{{ name }}</a>
-
-{{/each}}
-
+<form action="/groups/{{groupId}}" method="POST">
+  {{#each eventsList}}
+  <a href="/events/{{_id}}">{{ name }}</a>
+  <div class="button-holder">
+    <input type="checkbox" id="Upvote" name={{name}} value="Upvote" />
+  </div>
+  {{/each}}
+  <button type="submit">Submit</button>
+</form>
 <a href="/events/add">New event</a>
+Collapse

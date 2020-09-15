@@ -8,4 +8,7 @@
 {{/each}}
 
 <p>{{date}}</p>
-{{!-- {{/with}} --}}
+
+{{#with group}}
+<a href="/groups/{{_id}}/events">Vote</a>
+{{/with}}

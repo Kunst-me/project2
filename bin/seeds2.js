@@ -10,7 +10,7 @@ const events = [
   {
     name: "Techno painting",
     description: "Just wow",
-    date: new Date(2020, 07, 11),
+    date: new Date(2020, 07, 11).toDateString(),
     time: 2,
     duration: 1,
     location: "Kreuzberg",
@@ -21,7 +21,7 @@ const events = [
   {
     name: "Disco Moscow",
     description: "Bam",
-    date: new Date(2020, 09, 11),
+    date: new Date(2020, 09, 11).toDateString(),
     time: 2,
     duration: 1,
     location: "Kreuzberg",
@@ -32,7 +32,7 @@ const events = [
   {
     name: "Passau boat making",
     description: "Wavy",
-    date: new Date(2020, 09, 14),
+    date: new Date(2020, 09, 14).toDateString(),
     time: 2,
     duration: 1,
     location: "Lichtenberg",

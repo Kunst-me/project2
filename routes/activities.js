@@ -30,33 +30,40 @@ router.get("/groups/:groupId", (req, res, next) => {
     .populate("user")
     .then((groupFromDB) => {
       const date = groupFromDB.date.toDateString();
-      console.log("CHECK THIS OUT, THIS IS THE DATE:", groupFromDB);
       res.render("groups/groupDetails", { group: groupFromDB, date });
     });
 });
 
-router.post("/groups", loginCheck(), (req, res) => {
-  const { name, user, date } = req.body;
-  if (!req.isAuthenticated()) {
-    res.redirect("/");
-  }
-  Group.create({
-    name,
-    user,
-    date,
-  })
-    .then((group) => {
-      console.log(`New group was created: ${group}`);
-      res.redirect("/groups");
-    })
-    .catch((err) => {
-      console.log("There was an error: ", err);
-    });
-});
+// router.post("/groups", loginCheck(), (req, res) => {
+//   const { name, user, date } = req.body;
+//   if (!req.isAuthenticated()) {
+//     res.redirect("/");
+//   }
+//   Group.create({
+//     name,
+//     user,
+//     date,
+//   })
+//     .then((group) => {
+//       console.log("ATTENTIONNNNNN:", group);
+//       Event.find({ date: new Date(date).toDateString() }).then((res) => {
+//         const events = res.map((elem) => {
+//           return { event: elem._id, votes: 0 };
+//         });
+//         //  console.log(events)
+//         Group.findByIdAndUpdate(group._id, { events: events })
+//           .then((some) => console.log(some))
+//           .catch((err) => console.log(err));
+//       });
+//       res.redirect("/groups");
+//     })
+//     .catch((err) => {
+//       console.log("There was an error: ", err);
+//     });
+// });
 
 router.get("/events", (req, res, next) => {
   Event.find().then((eventsFromDB) => {
-    console.log("hello:", eventsFromDB);
     res.render("events/eventsView", { eventsList: eventsFromDB });
   });
 });
@@ -71,6 +78,53 @@ router.get("/events/:eventId", (req, res, next) => {
         event: { eventFromDB, date },
       });
     });
+});
+
+// Nad code
+router.post("/groups", loginCheck(), (req, res) => {
+  const { name, user, date } = req.body;
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
+  // console.log(typeof date);
+  Group.create({
+    name,
+    user,
+    date,
+  })
+    .then((group) => {
+      console.log(`ATTENTIONNNNNN ${group}`);
+      console.log(new Date(date).toDateString());
+      Event.find({ date: new Date(date).toDateString() }).then((res) => {
+        const events = res.map((elem) => {
+          return { events: elem._id, votes: 0 };
+        });
+        console.log(
+          "THESE ARE THE EVENTS, LOOK HERE FOR THE FULL LIST",
+          events
+        );
+        Group.findByIdAndUpdate(group._id, { events: events })
+          .then((some) => console.log(some))
+          .catch((err) => console.log(err));
+      });
+      res.redirect("/groups");
+    })
+    .catch((err) => {
+      console.log("There was an error: ", err);
+    });
+});
+router.get("/groups/:groupId/events", (req, res, next) => {
+  Event.find().then((eventsFromDB) => {
+    console.log("hello:", eventsFromDB);
+    res.render("events/eventsView", {
+      eventsList: eventsFromDB,
+      groupId: req.params.groupId,
+    });
+  });
+});
+router.post("/groups/:groupId", (req, res, next) => {
+  console.log(req.body);
+  res.send("mistakes were made");
 });
 
 module.exports = router;
