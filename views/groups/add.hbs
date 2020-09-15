@@ -1,0 +1,23 @@
+<h1>Group</h1>
+
+<form action="/groups" method="POST">
+
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name">
+
+
+  <select name="user">
+    {{#each users}}
+    <option value="{{_id}}">{{username}}</option>
+    {{/each}}
+
+  </select>
+
+  {{!-- <label for="event">Event:</label>
+  <input type="text" name="event" id="event"> --}}
+
+  <label for="date">Date:</label>
+  <input type="date" name="date" id="date">
+
+  <button type="submit">Add a group</button>
+</form>
