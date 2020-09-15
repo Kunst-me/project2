@@ -1,8 +1,11 @@
-{{#with group}}
-<h1>This is group {{name}}</h1>
+{{!-- {{#with group}} --}}
+<h1>This is group {{group.name}}</h1>
 
-<h3>{{user.username}}</h3>
+<h3>Participants: </h3>
+{{#each group.user}}
+<p>{{this.username}}</p>
+{{!-- {<p>{{this}}</p> --}}
+{{/each}}
+
 <p>{{date}}</p>
-{{!-- <a href="/groups/edit/{{__id}}">Edit this Group</a>
-<a href="/groups/delete/{{_id}}">Delete this Group</a> --}}
-{{/with}}
+{{!-- {{/with}} --}}
