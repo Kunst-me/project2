@@ -1,4 +1,4 @@
-<a href="/groups/{{_id}}/events">Vote</a>
+
 {{!-- <a href="/groups/edit/{{__id}}">Edit this Group</a>
 <a href="/groups/delete/{{_id}}">Delete this Group</a> --}}
 {{!-- {{#with group}} --}}
@@ -8,7 +8,13 @@
 {{#each group.user}}
 <p>{{this.username}}</p>
 {{!-- {<p>{{this}}</p> --}}
+
+
 {{/each}}
 
+
 <p>Date: {{date}}</p>
+{{#with group}}
+<a href="/groups/{{_id}}/events">Vote</a>
+{{/with}}
 {{!-- {{/with}} --}}
