@@ -5,20 +5,16 @@ const groupSchema = new Schema({
     type: String,
     default: "Friends",
   },
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
-  user: [
-    {
-      type: Schema.ObjectId,
-      ref: "User",
-    },
-  ],
-  // event: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Event",
-  // },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+ events:[ {
+   event:{ type: Schema.Types.ObjectId,
+     ref: "Event",},
+     votes:Number
+
+   }],
   date: {
     type: Date,
     // required: true,
