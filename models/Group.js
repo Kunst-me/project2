@@ -9,13 +9,13 @@ const groupSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  event: {
-    type: Schema.Types.ObjectId,
-    ref: "Event",
-  },
+  // event: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Event",
+  // },
   date: {
-    type: Number,
-    required: true,
+    type: Date,
+    // required: true,
   },
 });
 
