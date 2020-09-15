@@ -8,7 +8,7 @@ const { loginCheck } = require("./middlewares");
 
 router.get("/groups", (req, res, next) => {
   Group.find().then((groupsFromDB) => {
-    console.log("hello:", groupsFromDB);
+    //console.log("hello:", groupsFromDB);
     res.render("groups/groupsView", { groupsList: groupsFromDB });
   });
 });
@@ -29,8 +29,9 @@ router.get("/groups/:groupId", (req, res, next) => {
   Group.findById(id)
     .populate("user")
     .then((groupFromDB) => {
-      console.log(groupFromDB);
-      res.render("groups/groupDetails", { group: groupFromDB });
+      const date = groupFromDB.date.toDateString();
+      console.log("CHECK THIS OUT, THIS IS THE DATE:", groupFromDB);
+      res.render("groups/groupDetails", { group: groupFromDB, date });
     });
 });
 
@@ -58,6 +59,18 @@ router.get("/events", (req, res, next) => {
     console.log("hello:", eventsFromDB);
     res.render("events/eventsView", { eventsList: eventsFromDB });
   });
+});
+
+router.get("/events/:eventId", (req, res, next) => {
+  const id = req.params.eventId;
+  Event.findById(id)
+    .populate("user")
+    .then((eventFromDB) => {
+      const date = eventFromDB.date.toDateString();
+      res.render("events/eventDetails", {
+        event: { eventFromDB, date },
+      });
+    });
 });
 
 module.exports = router;

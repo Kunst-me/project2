@@ -1,0 +1,15 @@
+{{#with event}}
+<h1>This is event {{eventFromDB.name}}</h1>
+
+<h2>Name: {{eventFromDB.name}}</h2>
+<h3> Description: {{eventFromDB.description}}</h3>
+<p>Date: {{date}}</p>
+<p>Duration: {{eventFromDB.duration}} hours</p>
+<p>Maximum number of participants: {{eventFromDB.numParticipants}}</p>
+<p>Location: {{eventFromDB.location}}</p>
+<p>Price: €{{eventFromDB.price}}</p>
+{{!-- <p>{{pf:dateFormat event.date "EEE, MMMM DD, YYYY"}}</p> --}}
+
+{{!-- <a href="/events/edit/{{__id}}">Edit this event</a>
+<a href="/events/delete/{{_id}}">Delete this event</a> --}}
+{{/with}}
