@@ -29,8 +29,9 @@ router.get("/groups/:groupId", (req, res, next) => {
   Group.findById(id)
     .populate("user")
     .then((groupFromDB) => {
+      const date = groupFromDB.date.toDateString();
       console.log(groupFromDB);
-      res.render("groups/groupDetails", { group: groupFromDB });
+      res.render("groups/groupDetails", { group: groupFromDB, date });
     });
 });
 
@@ -47,8 +48,8 @@ router.post("/groups", loginCheck(), (req, res) => {
   })
     .then((group) => {
       console.log
-     // console.log(`New group was created: ${group}`);
-      //console.log(new Date(date).toDateString())
+     console.log(`New group was created: ${group}`);
+      console.log(new Date(date).toDateString())
       Event.find({date: new Date(date).toDateString()}).then(res=>{
         const events=res.map(elem=>{return {event:elem._id,votes:0}})
       //  console.log(events)
@@ -77,5 +78,18 @@ router.post("/groups/:groupId", (req, res, next) => {
 console.log(req.body)
 res.send("mistakes were made")
 })
+
+
+router.get("/events/:eventId", (req, res, next) => {
+  const id = req.params.eventId;
+  Event.findById(id)
+    .populate("user")
+    .then((eventFromDB) => {
+      const date = eventFromDB.date
+      res.render("events/eventDetails", {
+        event: { eventFromDB, date },
+      });
+    });
+});
 
 module.exports = router;

@@ -10,11 +10,7 @@ const events = [
   {
     name: "Techno painting",
     description: "Just wow",
-<<<<<<< HEAD
     date: new Date(2020, 07, 11).toDateString(),
-=======
-    date: new Date(2020, 07, 11),
->>>>>>> eb0c25fb11ebbfb3df78ebbf4f6c0839bfc451df
     time: 2,
     duration: 1,
     location: "Kreuzberg",
@@ -25,11 +21,7 @@ const events = [
   {
     name: "Disco Moscow",
     description: "Bam",
-<<<<<<< HEAD
     date: new Date(2020, 09, 11).toDateString(),
-=======
-    date: new Date(2020, 09, 11),
->>>>>>> eb0c25fb11ebbfb3df78ebbf4f6c0839bfc451df
     time: 2,
     duration: 1,
     location: "Kreuzberg",
@@ -40,11 +32,7 @@ const events = [
   {
     name: "Passau boat making",
     description: "Wavy",
-<<<<<<< HEAD
     date: new Date(2020, 09, 14).toDateString(),
-=======
-    date: new Date(2020, 09, 14),
->>>>>>> eb0c25fb11ebbfb3df78ebbf4f6c0839bfc451df
     time: 2,
     duration: 1,
     location: "Lichtenberg",
