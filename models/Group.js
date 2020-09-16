@@ -5,12 +5,10 @@ const groupSchema = new Schema({
     type: String,
     default: "Friends",
   },
-  user: [
-    {
-      type: Schema.ObjectId,
-      ref: "User",
-    },
-  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   events: [
     {
       event: { type: Schema.Types.ObjectId, ref: "Event" },

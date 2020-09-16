@@ -1,8 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@300&display=swap");
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font-family: "Bitter", serif; }
 
 a {
-  color: #00B7FF; }
+  color: #00b7ff; }
+
+.homepage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center; }
+
+.homepage h2 {
+  margin-top: 30px; }
+
+.homepage h4 {
+  width: 60vw; }
 
 /*# sourceMappingURL=style.css.map */
