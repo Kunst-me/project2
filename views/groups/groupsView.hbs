@@ -1,7 +1,8 @@
 <h1>These are your groups</h1>
 {{#each groupsList}}
+<div class="groupname">
 <a href="/groups/{{_id}}">{{ name }}</a>
-
+</div>
 {{/each}}
 
-<a href="/groups/add">new group</a>
+<a class="newGroup" href="/groups/add">new group</a>
