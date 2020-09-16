@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+
 <body>
 
   <nav>
@@ -17,6 +19,33 @@
   </nav>
 
   {{{body}}}
+  <div class="footerMap">
+    <section class="footer">
+      <h5> Contact Information </h5>
+      <address>
+        Ironhack<br>Lobeckstraße 36,<br>Berlin, Germany<br>+49 619 193 088
+      </address>
+      <h5> Follow Us </h5>
+      <ul>
+        <li>Twitter</li>
+        <li>Facebook</li>
+        <li>Instagram</li>
+      </ul>
+    </section>
+    <div style="overflow:hidden;width: 660px;position: relative;">
+      <iframe class="map-frame" width="460" height="200"
+        src="https://maps.google.com/maps?width=660&amp;height=400&amp;hl=en&amp;q=36%20Lobeckstra%C3%9Fe%20Berlin+(Titel)&amp;ie=UTF8&amp;t=&amp;z=13&amp;iwloc=B&amp;output=embed"
+        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+      <div
+        style="position: absolute;width: 80%;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;">
+      </div>
+      <style>
+        #gmap_canvas img {
+          max-width: none !important;
+          background: none !important
+        }
+      </style>
+    </div><br />
 
 <div class="footerMap">
   <section class="footer">
@@ -39,4 +68,5 @@ Ironhack<br>Lobeckstraße 36,<br>Berlin, Germany<br>+49 619 193 088
 
   <script src="/javascripts/script.js"></script>
 </body>
+
 </html>

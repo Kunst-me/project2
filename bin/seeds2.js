@@ -10,7 +10,7 @@ const events = [
   {
     name: "Techno painting",
     description: "Just wow",
-    date: new Date(2020, 07, 11).toDateString(),
+    date: new Date(2020, 09, 11).toDateString(),
     time: 2,
     duration: 1,
     location: "Kreuzberg",

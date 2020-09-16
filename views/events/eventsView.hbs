@@ -1,20 +1,23 @@
 <h1>These are the available events</h1>
-
-        <form action="/groups/{{groupId}}" method="POST">
-
-{{#each eventsList}}
-<div class="eventsList">
-<a href="/events/{{_id}}">{{ name }}</a>
- <div class="button-holder">
-            <input type="checkbox" id="upvote" name="events" value={{_id}}>
-
-</div> 
+<form action="/groups/{{groupId}}" method="POST">
+  {{#each eventsList}}
+  <div class="eventsList">
+    <a href="/events/{{_id}}">{{name}}</a>
+    <div class="button-holder">
+      <input type="checkbox" id="upvote" name="events" value={{event}} />
+    </div>
+  </div>
+  {{/each}}
+  <div class="voteSubmit">
+    <button type="submit">Submit</button>
+</form>
 </div>
 
-{{/each}}
-<div class="voteSubmit">
-            <button type="submit">Submit</button>
-
-        </form>
-</div>
-
+{{!-- {{#each eventsList}}
+  <div class="eventsList">
+    <a href="/events/{{_id}}">{{ name }}</a>
+    <div class="button-holder">
+      <input type="checkbox" id="Upvote" name={{name}} value="Upvote" />
+    </div>
+  </div>
+  {{/each}} --}}

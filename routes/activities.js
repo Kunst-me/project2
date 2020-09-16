@@ -8,7 +8,7 @@ const { loginCheck } = require("./middlewares");
 
 router.get("/groups", (req, res, next) => {
   Group.find().then((groupsFromDB) => {
-    console.log("hello:", groupsFromDB);
+    // console.log("hello:", groupsFromDB);
     res.render("groups/groupsView", { groupsList: groupsFromDB });
   });
 });
@@ -40,21 +40,26 @@ router.post("/groups", loginCheck(), (req, res) => {
   if (!req.isAuthenticated()) {
     res.redirect("/");
   }
-  console.log(typeof date)
+  console.log(typeof date);
   Group.create({
     name,
     user,
     date,
   })
     .then((group) => {
-      console.log
-     console.log(`New group was created: ${group}`);
-      console.log(new Date(date).toDateString())
-      Event.find({date: new Date(date).toDateString()}).then(res=>{
-        const events=res.map(elem=>{return {event:elem._id,votes:0}})
-      //  console.log(events)
-        Group.findByIdAndUpdate(group._id,{events: events }).then(some=>console.log(some)).catch(err=>console.log(err))
-      })
+      console.log;
+      console.log(`New group was created: ${group}`);
+      console.log(new Date(date).toDateString());
+      Event.find({ date: new Date(date).toDateString() }).then((res) => {
+        const events = res.map((elem) => {
+          console.log("this is the elem:", elem);
+          return { event: elem._id, name: elem.name, votes: 0 };
+        });
+        // console.log("DANIEL LOOK HERE, THESE ARE THE EVENTS:", events);
+        Group.findByIdAndUpdate(group._id, { events: events })
+          .then((some) => console.log("this is the some", some))
+          .catch((err) => console.log(err));
+      });
       res.redirect("/groups");
     })
     .catch((err) => {
@@ -109,11 +114,12 @@ Group.findByIdAndUpdate(groupId, { $push: { events: eventId}}, {new: true}).then
 
 
 router.get("/events/:eventId", (req, res, next) => {
+  console.log("couch potato", res);
   const id = req.params.eventId;
   Event.findById(id)
     .populate("user")
     .then((eventFromDB) => {
-      const date = eventFromDB.date
+      const date = eventFromDB.date;
       res.render("events/eventDetails", {
         event: { eventFromDB, date },
       });
