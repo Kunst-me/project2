@@ -6,14 +6,11 @@ const groupSchema = new Schema({
     default: "Friends",
   },
   user: {
-    type: Schema.Types.ObjectId,
+    type: [Schema.Types.ObjectId],
     ref: "User",
   },
   events: [
-    {
-      event: { type: Schema.Types.ObjectId, ref: "Event" },
-      votes: Number,
-    },
+    { event: { type: Schema.Types.ObjectId, ref: "Event" }, name: String },
   ],
   date: {
     type: Date,

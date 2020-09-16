@@ -52,11 +52,12 @@ router.post("/groups", loginCheck(), (req, res) => {
       console.log(new Date(date).toDateString());
       Event.find({ date: new Date(date).toDateString() }).then((res) => {
         const events = res.map((elem) => {
-          return { event: elem._id, votes: 0 };
+          console.log("this is the elem:", elem);
+          return { event: elem._id, name: elem.name, votes: 0 };
         });
-        //  console.log(events)
+        // console.log("DANIEL LOOK HERE, THESE ARE THE EVENTS:", events);
         Group.findByIdAndUpdate(group._id, { events: events })
-          .then((some) => console.log(some))
+          .then((some) => console.log("this is the some", some))
           .catch((err) => console.log(err));
       });
       res.redirect("/groups");
@@ -67,25 +68,27 @@ router.post("/groups", loginCheck(), (req, res) => {
 });
 
 router.get("/groups/:groupId/events", (req, res, next) => {
-  Event.find().then((eventsFromDB) => {
-    // let voted = [];
-    // if (vote.length == 1){
-    //   voted = vote[0].votes;
-    //    }
-    // console.log("hello:", eventsFromDB);
+  const id = req.params.groupId;
+  Group.findById(id).then((groupFromDB) => {
+    // console.log(req.params);
     res.render("events/eventsView", {
-      eventsList: eventsFromDB,
       groupId: req.params.groupId,
+      eventsList: groupFromDB.events,
     });
   });
 });
 
-router.post("/groups/:groupId", (req, res, next) => {
-  console.log(req.body);
-  res.send("mistakes were made");
-});
+// router.post("/groups/:groupId", (req, res, next) => {
+//   const voted = req.body.events;
+//   Event.findByIdAndUpdate(
+//   .....
+//   )
+//   console.log(req.body.events)
+//   res.send("/groups")
+//   })
 
 router.get("/events/:eventId", (req, res, next) => {
+  console.log("couch potato", res);
   const id = req.params.eventId;
   Event.findById(id)
     .populate("user")
