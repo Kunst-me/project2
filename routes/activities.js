@@ -68,24 +68,50 @@ router.post("/groups", loginCheck(), (req, res) => {
 });
 
 router.get("/groups/:groupId/events", (req, res, next) => {
-  const id = req.params.groupId;
-  Group.findById(id).then((groupFromDB) => {
-    // console.log(req.params);
-    res.render("events/eventsView", {
-      groupId: req.params.groupId,
-      eventsList: groupFromDB.events,
-    });
+    Event.find().then((eventsFromDB) => {
+    console.log("hello:", eventsFromDB);
+    res.render("events/eventsView", { eventsList: eventsFromDB, groupId:req.params.groupId });
   });
 });
 
-// router.post("/groups/:groupId", (req, res, next) => {
-//   const voted = req.body.events;
-//   Event.findByIdAndUpdate(
-//   .....
-//   )
-//   console.log(req.body.events)
-//   res.send("/groups")
-//   })
+
+router.post("/groups/:groupId", (req, res, next) => {
+const eventId = req.body.events;
+const groupId = req.params.groupId;
+// const id = req.body;
+Group.findByIdAndUpdate(groupId, { $push: { events: eventId}}, {new: true}).then(group => {
+  let votes = {}
+  group.events.forEach(eventID => {
+    if(votes[eventID]) {
+      votes[eventID] +=1
+    } else {
+      votes[eventID] = 1
+    }
+  })
+  // const sorVote = votes.sort()
+  // console.log(sorVote)
+  res.redirect(`/groups/${groupId}/events`)
+}).catch(err => console.log(err))
+// Group.findByIdAndUpdate({_id:req.body.events})
+// .then (events.votes => { return  {events.votes++}};
+// console.log(events.votes)
+// )
+// console.log(id)
+// console.log(voted)
+// res.send("/groups")
+})
+
+
+// router.post('/groups/:groupId', function (req, res) {
+//   Event.collection('groupEvents').save(req.body, function (err, result) {
+//     if (err) return console.log(err);
+//     console.log('saved to database');
+//     res.redirect('/');
+//   });
+// });
+
+
+
 
 router.get("/events/:eventId", (req, res, next) => {
   console.log("couch potato", res);

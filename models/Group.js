@@ -9,9 +9,9 @@ const groupSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: "User",
   },
-  events: [
-    { event: { type: Schema.Types.ObjectId, ref: "Event" }, name: String },
-  ],
+ events:[{type: Schema.Types.ObjectId,
+   ref: "Event"
+ }],
   date: {
     type: Date,
     // required: true,
