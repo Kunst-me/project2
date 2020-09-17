@@ -14,7 +14,7 @@ const eventSchema = new Schema({
     required: true,
   },
   time: {
-    type: Number,
+    type: String,
     required: true,
   },
   duration: {
@@ -27,7 +27,7 @@ const eventSchema = new Schema({
   },
   numParticipants: {
     type: Number,
-    required: true,
+    // required: true,
   },
   price: {
     type: Number,
@@ -35,7 +35,7 @@ const eventSchema = new Schema({
   },
   booked: {
     type: Boolean,
-    required: true,
+    // required: true,
   },
 });
 
