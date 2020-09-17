@@ -1,8 +1,10 @@
-<h1>These are your groups</h1>
+<h1>Your Groups</h1>
+<div class="groupview">
 {{#each groupsList}}
 <div class="groupname">
-  <a href="/groups/{{_id}}">{{ name }}</a>
+<a style="text-decoration:none" href="/groups/{{_id}}">{{ name }}</a>
 </div>
 {{/each}}
 
-<a class="newGroup" href="/groups/add">new group</a>
+<a class="newGroup" style="text-decoration:none" href="/groups/add">new group</a>
+</div>
