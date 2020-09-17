@@ -6,7 +6,10 @@ const Event = require("../models/Event");
 const Group = require("../models/Group");
 const { loginCheck } = require("./middlewares");
 
-router.get("/groups", (req, res, next) => {
+router.get("/groups", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.findById(req.user._id)
     .populate("group user")
     .then((user) => {
@@ -14,13 +17,19 @@ router.get("/groups", (req, res, next) => {
     });
 });
 
-router.get("/events", (req, res, next) => {
+router.get("/events", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   Event.find().then((events) => {
     res.render("events/viewAllEvents", { eventsList: events });
   });
 });
 
-router.get("/groups/add", (req, res, next) => {
+router.get("/groups/add", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.find()
     .then((usersFromDB) => {
       res.render("groups/add", { users: usersFromDB });
@@ -29,7 +38,10 @@ router.get("/groups/add", (req, res, next) => {
       next(error);
     });
 });
-router.get("/groups/:groupId", (req, res, next) => {
+router.get("/groups/:groupId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   const id = req.params.groupId;
   Group.findById(id)
     .populate("user.User")
@@ -68,7 +80,11 @@ router.post("/groups", loginCheck(), (req, res) => {
       console.log("There was an error: ", err);
     });
 });
-router.get("/groups/:groupId/events", (req, res, next) => {
+
+router.get("/groups/:groupId/events", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.findById(req.user._id)
     .populate("group")
     .then((user) => {
@@ -86,7 +102,10 @@ router.get("/groups/:groupId/events", (req, res, next) => {
       );
     });
 });
-router.post("/groups/:groupId", (req, res, next) => {
+router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   console.log(req.body);
   const eventId = req.body.events;
   const groupId = req.params.groupId;
@@ -135,7 +154,10 @@ router.post("/groups/:groupId", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-router.get("/events/add", (req, res, next) => {
+router.get("/events/add", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   Event.find()
     .then((eventsFromDB) => {
       res.render("events/add", { events: eventsFromDB });
@@ -146,6 +168,9 @@ router.get("/events/add", (req, res, next) => {
 });
 
 router.post("/events", loginCheck(), (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   const {
     name,
     description,
@@ -187,7 +212,10 @@ router.post("/events", loginCheck(), (req, res) => {
     });
 });
 
-router.get("/events/:eventId", (req, res, next) => {
+router.get("/events/:eventId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   const id = req.params.eventId;
   Event.findById(id)
     .populate("user")
