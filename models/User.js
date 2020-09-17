@@ -10,10 +10,12 @@ const userSchema = new Schema(
       enum: ["ADMIN", "USER"],
       default: "USER",
     },
-    group: [{
-      type: Schema.Types.ObjectId,
-      ref: "Group",
-    }]
+    group: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Group",
+      },
+    ],
   },
   {
     timestamps: {
