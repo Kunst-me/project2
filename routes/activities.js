@@ -120,10 +120,34 @@ router.post("/groups/:groupId", (req, res, next) => {
           votes[eventID] = 1;
         }
       });
-      const highestVote = Math.max(...Object.values(votes));
-      console.log(highestVote);
+      function returnHighestVote(votes) {
+        let arrayVotes = Object.entries(votes);
+        let max = [];
+        let maax = 0;
+        for (let i = 0; i < arrayVotes.length; i++) {
+          for (let j = 0; j < arrayVotes[i].length; j++) {
+            if (arrayVotes[i][1] > maax) {
+              maax = arrayVotes[i][1];
+              max = arrayVotes[i];
+            }
+          }
+        }
+        return max;
+      }
+      console.log("these are the votes:", votes);
+      console.log("highest vote function", returnHighestVote(votes));
+      console.log("this is the group user:", group.user.length);
+      Event.findById(returnHighestVote(votes)[0])
+        .populate("user")
+        .then((eventFromDB) => {
+          const date = eventFromDB.date;
+          res.render("events/eventDetails", {
+            event: { eventFromDB, date },
+          });
+        });
+
       // console.log(votes.Math.Max(, votes.length);
-      res.redirect(`/groups/${groupId}/events`);
+      // res.redirect(`/groups/${groupId}/events`);
     })
     .catch((err) => console.log(err));
   // Group.findByIdAndUpdate({_id:req.body.events})

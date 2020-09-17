@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./bin/www && node ./bin/seeds2.js",
     "dev": "DEBUG=project2:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
   },
