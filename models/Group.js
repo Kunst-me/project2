@@ -14,8 +14,7 @@ const groupSchema = new Schema({
   events: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Event",
-      //name: String,
+      ref: "Event"
     },
   ],
   date: {
