@@ -1,0 +1,14 @@
+<h1>These is the full list of events</h1>
+
+
+{{#each eventsList}}
+<div class="groupname">
+  <a href="/events/{{_id}}">{{name}}</a>
+</div>
+{{/each}}
+<div>
+
+  <a class="newGroup" style="text-decoration:none" href="/events/add">Add a new event</a>
+
+  <a class="newGroup" style="text-decoration:none" href="/groups">View all your groups</a>
+</div>

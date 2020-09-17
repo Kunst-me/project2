@@ -8,7 +8,10 @@ const {
   loginCheck
 } = require("./middlewares");
 
-router.get("/groups", (req, res, next) => {
+router.get("/groups", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.findById(req.user._id)
     // .populate("user.User")
     .populate("group")
@@ -19,12 +22,25 @@ router.get("/groups", (req, res, next) => {
         groupsList: user.group
       });
     });
-  // });
 });
-router.get("/groups/add", (req, res, next) => {
+
+router.get("/events", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
+  Event.find().then((events) => {
+    res.render("events/viewAllEvents", {
+      eventsList: events
+    });
+  });
+});
+
+router.get("/groups/add", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.find()
     .then((usersFromDB) => {
-      // console.log("This is an :", usersFromDB);
       res.render("groups/add", {
         users: usersFromDB
       });
@@ -33,23 +49,10 @@ router.get("/groups/add", (req, res, next) => {
       next(error);
     });
 });
-
-// router.get('/groups/delete/:id', (req,res,next) => {
-//   const id = req.params.id;
-//   Group.findByIdAndDelete(id)
-//   .then(groupFromDB => {
-//     console.log(groupFromDB)
-//     res.render('/groups', { group: groupFromDB})
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   })
-// });
-
-
-
-
-router.get("/groups/:groupId", (req, res, next) => {
+router.get("/groups/:groupId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   const id = req.params.groupId;
   Group.findById(id)
     .populate("user.User")
@@ -61,8 +64,6 @@ router.get("/groups/:groupId", (req, res, next) => {
       });
     });
 });
-
-
 
 router.post("/groups", loginCheck(), (req, res) => {
   const {
@@ -125,7 +126,11 @@ router.post("/groups", loginCheck(), (req, res) => {
       console.log("There was an error: ", err);
     });
 });
-router.get("/groups/:groupId/events", (req, res, next) => {
+
+router.get("/groups/:groupId/events", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   User.findById(req.user._id)
     .populate("group")
     .then((user) => {
@@ -137,8 +142,6 @@ router.get("/groups/:groupId/events", (req, res, next) => {
         date: new Date(groupDate).toDateString()
       }).then(
         (eventsFromDB) => {
-          // Event.find().then((eventsFromDB) => {
-          // console.log("hello:", eventsFromDB);
           res.render("events/eventsView", {
             eventsList: eventsFromDB,
             groupId: req.params.groupId,
@@ -147,7 +150,10 @@ router.get("/groups/:groupId/events", (req, res, next) => {
       );
     });
 });
-router.post("/groups/:groupId", (req, res, next) => {
+router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   console.log(req.body);
   const eventId = req.body.events;
   const groupId = req.params.groupId;
@@ -202,10 +208,72 @@ router.post("/groups/:groupId", (req, res, next) => {
         });
     })
     .catch((err) => console.log(err));
-
 });
 
-router.get("/events/:eventId", (req, res, next) => {
+router.get("/events/add", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
+  Event.find()
+    .then((eventsFromDB) => {
+      res.render("events/add", {
+        events: eventsFromDB
+      });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+router.post("/events", loginCheck(), (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
+  const {
+    name,
+    description,
+    time,
+    date,
+    duration,
+    location,
+    numParticipants,
+    price,
+  } = req.body;
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
+  Event.create({
+      name,
+      description,
+      time,
+      date,
+      duration,
+      location,
+      numParticipants,
+      price,
+    })
+    .then((event) => {
+      console.log(event);
+      event.date = event;
+      // Group.find({ date: new Date(date).toDateString() }).then((res) => {
+      //   const events = res.map((elem) => {
+      //     return { events: elem._id, name: elem.name, votes: 0 };
+      //   });
+      //   Group.findByIdAndUpdate(group._id, { events: events })
+      //     .then((some) => console.log("this is the some", some))
+      //     .catch((err) => console.log(err));
+      // });
+      res.redirect("/events");
+    })
+    .catch((err) => {
+      console.log("There was an error: ", err);
+    });
+});
+
+router.get("/events/:eventId", loginCheck(), (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  }
   const id = req.params.eventId;
   Event.findById(id)
     .populate("user")
