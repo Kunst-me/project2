@@ -4,16 +4,23 @@ const router = express.Router();
 const User = require("../models/User");
 const Event = require("../models/Event");
 const Group = require("../models/Group");
-const { loginCheck } = require("./middlewares");
+const {
+  loginCheck
+} = require("./middlewares");
 
 router.get("/groups", loginCheck(), (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.redirect("/");
   }
   User.findById(req.user._id)
-    .populate("group user")
+    // .populate("user.User")
+    .populate("group")
     .then((user) => {
-      res.render("groups/groupsView", { groupsList: user.group });
+      // Group.find().then((groupsFromDB) => {
+      // console.log("hello:", groupsFromDB);
+      res.render("groups/groupsView", {
+        groupsList: user.group
+      });
     });
 });
 
@@ -22,7 +29,9 @@ router.get("/events", loginCheck(), (req, res, next) => {
     res.redirect("/");
   }
   Event.find().then((events) => {
-    res.render("events/viewAllEvents", { eventsList: events });
+    res.render("events/viewAllEvents", {
+      eventsList: events
+    });
   });
 });
 
@@ -32,7 +41,9 @@ router.get("/groups/add", loginCheck(), (req, res, next) => {
   }
   User.find()
     .then((usersFromDB) => {
-      res.render("groups/add", { users: usersFromDB });
+      res.render("groups/add", {
+        users: usersFromDB
+      });
     })
     .catch((error) => {
       next(error);
@@ -47,30 +58,65 @@ router.get("/groups/:groupId", loginCheck(), (req, res, next) => {
     .populate("user.User")
     .then((groupFromDB) => {
       const date = groupFromDB.date.toDateString();
-      res.render("groups/groupDetails", { group: groupFromDB, date });
+      res.render("groups/groupDetails", {
+        group: groupFromDB,
+        date
+      });
     });
 });
 
 router.post("/groups", loginCheck(), (req, res) => {
-  const { name, user, date } = req.body;
+  const {
+    name,
+    user,
+    date
+  } = req.body;
+
+
   if (!req.isAuthenticated()) {
     res.redirect("/");
   }
   Group.create({
-    name,
-    user,
-    date,
-  })
+      name,
+      user,
+      date,
+    })
+
     .then((group) => {
-      User.findByIdAndUpdate(req.user._id, {
-        $push: { group: group._id },
-      }).then((user) => console.log(user));
-      console.log(`New group was created: ${group}`);
-      Event.find({ date: new Date(date).toDateString() }).then((res) => {
+      console.log("is this the array of users?", group.user)
+      console.log(user)
+      group.user.push(req.user._id)
+      group.user.forEach((user) => {
+        User.findByIdAndUpdate(user, {
+            $push: {
+              group: group._id
+            },
+          })
+          .populate('user')
+          .then((user) => {
+            console.log("bam", user)
+          })
+      })
+
+
+
+      // console.log(new Date(date).toDateString());
+      Event.find({
+        date: new Date(date).toDateString()
+      }).then((res) => {
+        // console.log(res, "RES");
         const events = res.map((elem) => {
-          return { events: elem._id, name: elem.name, votes: 0 };
+          // console.log("this is the elem:", elem);
+          return {
+            events: elem._id,
+            name: elem.name,
+            votes: 0
+          };
         });
-        Group.findByIdAndUpdate(group._id, { events: events })
+        // console.log("DANIEL LOOK HERE, THESE ARE THE EVENTS:", events);
+        Group.findByIdAndUpdate(group._id, {
+            events: events
+          })
           .then((some) => console.log("this is the some", some))
           .catch((err) => console.log(err));
       });
@@ -92,7 +138,9 @@ router.get("/groups/:groupId/events", loginCheck(), (req, res, next) => {
         (group) => group._id == req.params.groupId
       ).date;
       console.log(groupDate, "group");
-      Event.find({ date: new Date(groupDate).toDateString() }).then(
+      Event.find({
+        date: new Date(groupDate).toDateString()
+      }).then(
         (eventsFromDB) => {
           res.render("events/eventsView", {
             eventsList: eventsFromDB,
@@ -111,10 +159,14 @@ router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
   const groupId = req.params.groupId;
   // const id = req.body;
   Group.findByIdAndUpdate(
-    groupId,
-    { $push: { events: eventId } },
-    { new: true }
-  )
+      groupId, {
+        $push: {
+          events: eventId
+        }
+      }, {
+        new: true
+      }
+    )
     .then((group) => {
       let votes = {};
       console.log(group);
@@ -125,6 +177,7 @@ router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
           votes[eventID] = 1;
         }
       });
+
       function returnHighestVote(votes) {
         let arrayVotes = Object.entries(votes);
         let max = [];
@@ -147,7 +200,10 @@ router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
         .then((eventFromDB) => {
           const date = eventFromDB.date;
           res.render("events/eventDetails", {
-            event: { eventFromDB, date },
+            event: {
+              eventFromDB,
+              date
+            },
           });
         });
     })
@@ -160,7 +216,9 @@ router.get("/events/add", loginCheck(), (req, res, next) => {
   }
   Event.find()
     .then((eventsFromDB) => {
-      res.render("events/add", { events: eventsFromDB });
+      res.render("events/add", {
+        events: eventsFromDB
+      });
     })
     .catch((error) => {
       next(error);
@@ -185,15 +243,15 @@ router.post("/events", loginCheck(), (req, res) => {
     res.redirect("/");
   }
   Event.create({
-    name,
-    description,
-    time,
-    date,
-    duration,
-    location,
-    numParticipants,
-    price,
-  })
+      name,
+      description,
+      time,
+      date,
+      duration,
+      location,
+      numParticipants,
+      price,
+    })
     .then((event) => {
       console.log(event);
       event.date = event;
@@ -222,7 +280,10 @@ router.get("/events/:eventId", loginCheck(), (req, res, next) => {
     .then((eventFromDB) => {
       const date = eventFromDB.date;
       res.render("events/eventDetails", {
-        event: { eventFromDB, date },
+        event: {
+          eventFromDB,
+          date
+        },
       });
     });
 });
