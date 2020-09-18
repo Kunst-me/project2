@@ -2,26 +2,25 @@
 
 <div class="overallAdd">
 
-<form action="/groups" method="POST">
+  <form action="/groups" method="POST">
 
-  <label for="name">Groupname:</label>
-  <input class="add" type="text" name="name" id="name">
+    <label for="name">Groupname:</label>
+    <input class="add" type="text" name="name" id="name">
 
 
-  <select name="user" multiple>
-    {{#each users }}
-    <option class="add" value="{{_id}}">{{username}}</option>
-    {{/each}}
+    <label for="user">Friends:</label>
+    <select class="add" name="user" multiple>
+      {{#each users }}
+      <option class="users" value="{{_id}}">{{username}}</option>
+      {{/each}}
 
-  </select>
+    </select>
 
-  {{!-- <label for="event">Event:</label>
-  <input type="text" name="event" id="event"> --}}
 
-  <label for="date">Date:</label>
-  <input class="add" type="date" name="date" id="date">
+    <label for="date">Date:</label>
+    <input class="add" type="date" name="date" id="date">
 
-  <button class="voteSubmit" type="submit">Add a group</button>
-</form>
+    <button class="voteSubmit" type="submit">Add Group</button>
+  </form>
 
 </div>
