@@ -47,10 +47,12 @@ h4 {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  list-style-type: none; }
 
 .groupname a {
-  color: black; }
+  color: black;
+  text-decoration: none; }
 
 .newGroup {
   border-radius: 20px;
@@ -63,7 +65,10 @@ h4 {
   background-color: azure;
   text-align: center;
   padding-top: 15px;
-  margin: 30px; }
+  margin: 30px;
+  border-color: azure;
+  color: #00b7ff;
+  font-size: 20px; }
 
 .groupview {
   text-decoration: none; }
@@ -96,7 +101,8 @@ h4 {
   padding-top: 15px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 20px; }
+  font-size: 20px;
+  margin-bottom: 20px; }
 
 .footer {
   text-align: center;
@@ -174,5 +180,73 @@ nav a {
   border-radius: 20px;
   box-sizing: border-box;
   box-shadow: 2px 2px 10px 0 #eee; }
+
+.groupDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.participants {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 10px 0 #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: papayawhip; }
+
+.participantsUl {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  color: black;
+  align-items: center;
+  font-size: 24px; }
+
+.groupDetails h1 {
+  font-size: 50px; }
+
+.groupDetails h4 {
+  font-size: 24px;
+  display: flex;
+  justify-content: center; }
+
+.return {
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 10px 0 #eee;
+  display: flex;
+  justify-content: center;
+  width: 1100px;
+  height: 50px;
+  background-color: azure;
+  text-align: center;
+  padding-top: 15px;
+  margin: 30px;
+  border-color: azure;
+  color: #00b7ff;
+  font-size: 20px;
+  text-decoration: none; }
+
+.eventDetails {
+  font-weight: 800px;
+  font-size: 18px; }
+
+.eventDetails h1 {
+  font-size: 34px;
+  font-weight: 900px; }
+
+.date {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.date i {
+  margin-right: 10px; }
 
 /*# sourceMappingURL=style.css.map */

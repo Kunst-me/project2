@@ -1,14 +1,36 @@
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 {{#with event}}
-<h1>You're going to {{eventFromDB.name}}</h1>
 
-<h2>Name: {{eventFromDB.name}}</h2>
-<h3> Description: {{eventFromDB.description}}</h3>
-<p>Date: {{date}}</p>
-<p>Duration: {{eventFromDB.duration}} hours</p>
-<p>Maximum number of participants: {{eventFromDB.numParticipants}}</p>
-<p>Location: {{eventFromDB.location}}</p>
-<p>Price: €{{eventFromDB.price}}</p>
-{{/with}}
-<p>Votes: {{event.votii}}</p>
+<div class="eventDetails">
+  <h1>You're going to {{eventFromDB.name}}</h1>
 
-<a href="/">Book Now</a>
+  <div class="date">
+    <i style='font-size:24px' class='far'>&#xf133; </i>
+    <p> {{date}}</p>
+  </div>
+  <div class="date">
+    <i style='font-size:24px' class='far'>&#xf017;</i>
+    <p>{{eventFromDB.duration}} hours</p>
+  </div>
+  <div class="date">
+    <i style='font-size:24px' class='fas'>&#xf7ce;</i>
+    <p>{{eventFromDB.numParticipants}} Participants</p>
+  </div>
+  <div class="date">
+    <i class="material-icons">&#xe55b;</i>
+    <p>{{eventFromDB.location}}</p>
+  </div>
+  <div class="date">
+    <i style="font-size:24px" class="fa">&#xf153;</i>
+    <p>{{eventFromDB.price}}€</p>
+  </div>
+
+  <p>{{event.votii}}</p>
+
+  {{/with}}
+
+
+  <a href="/">Book Now</a>
+</div>
