@@ -272,4 +272,17 @@ router.get("/events/:eventId", loginCheck(), (req, res, next) => {
       });
     });
 });
+
+router.get("/groups/delete/:groupId", (req, res) => {
+  const id = req.params.groupId;
+  Group.findByIdAndDelete(id)
+    .then(() => {
+      res.redirect("/groups");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+module.exports = router;
+
 module.exports = router;
