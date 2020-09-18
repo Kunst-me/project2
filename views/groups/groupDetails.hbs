@@ -1,16 +1,28 @@
 {{#with group}}
 
-<h1>This is {{name}}</h1>
-{{/with}}
-<h3>Date: {{date}}</h3>
-{{#with group}}
-<h3>Participants: </h3>
-{{#each user}}
-<p>{{username}}</p>
-{{/each}}
+<div class="groupDetails">
+
+  <h1>{{name}}</h1>
+  {{/with}}
+  <h4>Date: {{date}}</h4>
+  {{#with group}}
+  <div class="participantsUl">
+    <h3>Participants: </h3>
+    {{#each user}}
+    <ul>
+      <li class="participants">{{username}}</li>
+    </ul>
+    {{/each}}
+  </div>
 
 
-<a class="voteSubmit" href="/groups/{{_id}}/events">Vote</a>
+  <a class="voteSubmit" href="/groups/{{_id}}/events">Choose Your Art</a>
 
-<a class="newGroup" style="text-decoration:none" href="/groups/delete/{{_id}}">Delete Group</a>
-{{/with}}
+  <a class="voteSubmit" style="text-decoration:none" href="/groups/delete/{{_id}}">Delete Group</a>
+
+
+
+
+  {{/with}}
+
+</div>
