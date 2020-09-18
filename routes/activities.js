@@ -53,7 +53,7 @@ router.get("/groups/:groupId", loginCheck(), (req, res, next) => {
   }
   const id = req.params.groupId;
   Group.findById(id)
-    .populate("user.User")
+    .populate("user")
     .then((groupFromDB) => {
       const date = groupFromDB.date.toDateString();
       res.render("groups/groupDetails", {
@@ -278,21 +278,6 @@ router.get("/events/:eventId", loginCheck(), (req, res, next) => {
       });
     });
 });
-
-// router.get("groups/:groupId", loginCheck(), (req, res, next) => {
-//   if (!req.isAuthenticated()) {
-//     res.redirect("/");
-//   }
-//   const query = { _id: req.params.groupId };
-
-//   Group.findOneAndDelete(query)
-//     .then(() => {
-//       res.redirect("/groups");
-//     })
-//     .catch((error) => {
-//       next(error);
-//     });
-// });
 
 router.get("/groups/delete/:groupId", (req, res) => {
   const id = req.params.groupId;
