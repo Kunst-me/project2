@@ -55,7 +55,7 @@ router.get("/groups/:groupId", loginCheck(), (req, res, next) => {
   }
   const id = req.params.groupId;
   Group.findById(id)
-    .populate("user.User")
+    .populate("user")
     .then((groupFromDB) => {
       const date = groupFromDB.date.toDateString();
       res.render("groups/groupDetails", {
