@@ -4,7 +4,7 @@
 {{#with event}}
 
 <div class="eventDetails">
-  <h1>You're going to {{eventFromDB.name}}</h1>
+  <h1>Your group is going to {{eventFromDB.name}}</h1>
 
   <div class="date">
     <i style='font-size:24px' class='far'>&#xf133; </i>
@@ -27,10 +27,13 @@
     <p>{{eventFromDB.price}}€</p>
   </div>
 
-  <p>{{event.votii}}</p>
-
   {{/with}}
 
+  <div class="date">
+    <i style='font-size:24px' class='fas'>&#xf500;</i>
+    <p>{{event.votii}}</p>
+  </div>
 
-  <a href="/">Book Now</a>
+
+  <a class="return" href="/">Book Now</a>
 </div>
