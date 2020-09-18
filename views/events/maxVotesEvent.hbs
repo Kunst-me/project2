@@ -1,0 +1,14 @@
+{{#with event}}
+<h1>You're going to {{eventFromDB.name}}</h1>
+
+<h2>Name: {{eventFromDB.name}}</h2>
+<h3> Description: {{eventFromDB.description}}</h3>
+<p>Date: {{date}}</p>
+<p>Duration: {{eventFromDB.duration}} hours</p>
+<p>Maximum number of participants: {{eventFromDB.numParticipants}}</p>
+<p>Location: {{eventFromDB.location}}</p>
+<p>Price: €{{eventFromDB.price}}</p>
+{{/with}}
+<p>Votes: {{event.votii}}</p>
+
+<a href="/">Book Now</a>
