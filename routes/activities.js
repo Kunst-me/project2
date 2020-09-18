@@ -190,10 +190,12 @@ router.post("/groups/:groupId", loginCheck(), (req, res, next) => {
         .populate("user")
         .then((eventFromDB) => {
           const date = eventFromDB.date;
-          res.render("events/eventDetails", {
+          const votii = returnHighestVote(votes)[1];
+          res.render("events/maxVotesEvent", {
             event: {
               eventFromDB,
               date,
+              votii,
             },
           });
         });
@@ -244,16 +246,7 @@ router.post("/events", loginCheck(), (req, res) => {
     price,
   })
     .then((event) => {
-      console.log(event);
       event.date = event;
-      // Group.find({ date: new Date(date).toDateString() }).then((res) => {
-      //   const events = res.map((elem) => {
-      //     return { events: elem._id, name: elem.name, votes: 0 };
-      //   });
-      //   Group.findByIdAndUpdate(group._id, { events: events })
-      //     .then((some) => console.log("this is the some", some))
-      //     .catch((err) => console.log(err));
-      // });
       res.redirect("/events");
     })
     .catch((err) => {
