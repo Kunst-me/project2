@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Bitter:wght@300&display=swap");
+
 body {
   padding: 50px;
-  font-family: "Bitter", serif; }
+  font-family: "Bitter", serif;
+}
 
 a {
   color: #00b7ff;
-  font-weight: 1000; 
-  font-size: 20px;}
+  font-weight: 1000;
+  font-size: 20px;
+}
 
 .homepage {
   display: flex;
@@ -14,14 +17,17 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center; }
+  text-align: center;
+}
 
 .homepage h2 {
-  margin-top: 30px; }
+  margin-top: 30px;
+}
 
 .homepage h4 {
-  width: 80vw; 
-  margin-bottom: 50px;}
+  width: 80vw;
+  margin-bottom: 50px;
+}
 
 h1 {
   font-weight: 900;
@@ -52,7 +58,8 @@ h4 {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+}
 
 .groupname a {
   color: black
@@ -69,13 +76,14 @@ h4 {
   background-color: azure;
   text-align: center;
   padding-top: 15px;
-  margin: 30px }
+  margin: 30px
+}
 
- 
 
-  .groupview {
-    text-decoration: none;
-  }
+
+.groupview {
+  text-decoration: none;
+}
 
 .eventsList {
   text-align: center;
@@ -90,7 +98,8 @@ h4 {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+}
 
 .voteSubmit {
   border-radius: 20px;
@@ -103,7 +112,10 @@ h4 {
   background-color: azure;
   text-align: center;
   padding-top: 15px;
-  text-decoration: none; }
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+}
 
 .footer {
   text-align: center;
@@ -116,24 +128,27 @@ h4 {
   justify-content: space-between;
   // align-items: center;
   flex-direction: column-reverse;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 .footer ul {
   padding: 0px;
-  list-style-type: none; }
+  list-style-type: none;
+}
 
 .map-frame {
-  margin-top: 40px; 
+  margin-top: 40px;
   display: flex;
   justify-content: right;
-  }
+}
 
 .footerMap {
   background-color: azure;
   display: flex;
   flex-direction: row;
-  margin-top: 100px; 
-  margin-bottom: 25px;}
+  margin-top: 100px;
+  margin-bottom: 25px;
+}
 
 /* header */
 
@@ -163,10 +178,9 @@ nav a {
 
 //add
 
-.overallAdd {
+.overallAdd {
   display: flex;
   flex-direction: column;
-  color:black;
 }
 
 .add {
@@ -174,13 +188,23 @@ nav a {
   padding: 30px;
   margin: 30px;
   font-weight: bold;
-  font-size: 28px;
+  font-size: 20px;
   border-radius: 20px;
   box-sizing: border-box;
   box-shadow: 2px 2px 10px 0 #eee;
-  width: 600px;
+  width: 400px;
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+}
+
+.users {
+  text-align: center;
+  padding: 30px;
+  margin: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 10px 0 #eee;
 }
